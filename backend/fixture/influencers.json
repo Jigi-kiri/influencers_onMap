@@ -1,0 +1,471 @@
+[
+	{
+		"id": 1,
+		"fullname": "Manish Pandey",
+		"img": "/Icon/manish.jpg",
+		"email": "manish_p@gmail.com",
+		"subscriber_count": 15000,
+		"follower_count": 25000,
+		"daily_reach": 4000,
+		"category": "Motivation",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Mukund Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.366300141906958,
+			"lng": 73.17568417517695
+		}
+	},
+	{
+		"id": 2,
+		"fullname": "Raj Kumar",
+		"img": "/Icon/raj.jpg",
+		"email": "rajkumar12@gmail.com",
+		"subscriber_count": 10000,
+		"follower_count": 16000,
+		"daily_reach": 800,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Naneshwar Residancy",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.678156,
+			"lng": 72.557022
+		}
+	},
+	{
+		"id": 3,
+		"fullname": "Jimmy Cameety",
+		"img": "/Icon/jimmy.jpg",
+		"email": "jammes1102@gmail.com",
+		"subscriber_count": 30000,
+		"follower_count": 47000,
+		"daily_reach": 12000,
+		"category": "Vloger",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Rekkha soc, Navaragpura",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.021009,
+			"lng": 72.523387
+		}
+	},
+	{
+		"id": 4,
+		"fullname": "Jaydeep Singh",
+		"img": "/Icon/jaydeep.jpg",
+		"email": "jsingal110@gmail.com",
+		"subscriber_count": 22000,
+		"follower_count": 31000,
+		"daily_reach": 6000,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram"
+		],
+		"address": {
+			"address1": "Shella",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.998908,
+			"lng": 72.409525
+		}
+	},
+	{
+		"id": 5,
+		"fullname": "Nitin Jani",
+		"img": "/Icon/nitin.jpg",
+		"email": "janinattu@gmail.com",
+		"subscriber_count": 15000,
+		"follower_count": 75000,
+		"daily_reach": 4000,
+		"category": "SocialWorker",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook",
+			"Tweeter"
+		],
+		"address": {
+			"address1": "Santej",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.113195,
+			"lng": 72.493955
+		}
+	},
+	{
+		"id": 6,
+		"fullname": "Ankit Gajjar",
+		"img": "/Icon/ankit.jpg",
+		"email": "aniketg111@yahoo.com",
+		"subscriber_count": 50000,
+		"follower_count": 100000,
+		"daily_reach": 15000,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Bopal",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.040816,
+			"lng": 72.446524
+		}
+	},
+	{
+		"id": 7,
+		"fullname": "Riya Sharma",
+		"img": "/Icon/riya.jpg",
+		"email": "shriya_off@gmail.com",
+		"subscriber_count": 425000,
+		"follower_count": 523000,
+		"daily_reach": 12000,
+		"category": "Vloger",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Mukund Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.060455,
+			"lng": 72.621386
+		}
+	},
+	{
+		"id": 8,
+		"fullname": "RJ Riya",
+		"img": "/Icon/rjriya.jpg",
+		"email": "riyarj@yahoo.com",
+		"subscriber_count": 500000,
+		"follower_count": 566000,
+		"daily_reach": 20000,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Vatva Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.972911,
+			"lng": 72.634965
+		}
+	},
+	{
+		"id": 9,
+		"fullname": "Manoj Padaiyachi",
+		"img": "/Icon/manoj.jpg",
+		"email": "manoj_fittness@gmail.com",
+		"subscriber_count": 15000,
+		"follower_count": 25000,
+		"daily_reach": 4000,
+		"category": "Motivation",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Om Nagar",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.062430,
+			"lng": 72.633029
+		}
+	},
+	{
+		"id": 10,
+		"fullname": "Bhavik Sarkhedi",
+		"img": "/Icon/bhavik.jpg",
+		"email": "sharkhebhavik@gmail.com",
+		"subscriber_count": 9900,
+		"follower_count": 15000,
+		"daily_reach": 1200,
+		"category": "Vloger",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Khodiyar Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.132312,
+			"lng": 72.536492
+		}
+	},
+	{
+		"id": 11,
+		"fullname": "Krishna Dobariya",
+		"img": "/Icon/krishna.jpg",
+		"email": "krishudobariya@gmail.com",
+		"subscriber_count": 8000,
+		"follower_count": 14300,
+		"daily_reach": 930,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Vandemataram Gota",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.096485,
+			"lng": 72.542783
+		}
+	},
+	{
+		"id": 12,
+		"fullname": "Ravirajsinh Vaja",
+		"img": "/Icon/raviraj.jpg",
+		"email": "ravirasing@gmail.com",
+		"subscriber_count": 12100,
+		"follower_count": 20000,
+		"daily_reach": 5600,
+		"category": "Motivation",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Jivraj Park, Vejalpur",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.009662,
+			"lng": 72.536492
+		}
+	},
+	{
+		"id": 13,
+		"fullname": "Ronil Philips",
+		"img": "/Icon/ronil.jpg",
+		"email": "ronilphi_p@gmail.com",
+		"subscriber_count": 15000,
+		"follower_count": 25000,
+		"daily_reach": 4000,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Facebook"
+		],
+		"address": {
+			"address1": "NarolGam Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.933478,
+			"lng": 72.604721
+		}
+	},
+	{
+		"id": 14,
+		"fullname": "Raksha Arun",
+		"img": "/Icon/raksha.jpg",
+		"email": "rekhasangvi@gmail.com",
+		"subscriber_count": 22000,
+		"follower_count": 45000,
+		"daily_reach": 7600,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Gobipura Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.995185,
+			"lng": 72.421326
+		}
+	},
+	{
+		"id": 15,
+		"fullname": "Sweta Pimpera",
+		"img": "/Icon/sweeta.jpg",
+		"email": "sweeetap@gmail.com",
+		"subscriber_count": 18450,
+		"follower_count": 27540,
+		"daily_reach": 2310,
+		"category": "Vloger",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "G Road Gandhinagar",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.140321,
+			"lng": 72.566978
+		}
+	},
+	{
+		"id": 16,
+		"fullname": "Harshil Barot",
+		"img": "/Icon/harsheel.jpg",
+		"email": "harshilbarot@gmail.com",
+		"subscriber_count": 22180,
+		"follower_count": 45334,
+		"daily_reach": 6543,
+		"category": "Technology",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Shantigram",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 23.164347,
+			"lng": 72.534315
+		}
+	},
+	{
+		"id": 17,
+		"fullname": "Salman Mansuri",
+		"img": "/Icon/salman.jpg",
+		"email": "mansuri_salman@gmail.com",
+		"subscriber_count": 21200,
+		"follower_count": 42120,
+		"daily_reach": 12290,
+		"category": "Technology",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Tweeter"
+		],
+		"address": {
+			"address1": "Giramtha Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.866398,
+			"lng": 72.554135
+		}
+	},
+	{
+		"id": 18,
+		"fullname": "Tarnnum Shaikh",
+		"img": "/Icon/tarannum.jpg",
+		"email": "tarnnum_shaikh@gmail.com",
+		"subscriber_count": 65000,
+		"follower_count": 98700,
+		"daily_reach": 2000,
+		"category": "Fashion",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook"
+		],
+		"address": {
+			"address1": "Dantali",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.697652,
+			"lng": 72.785458
+		}
+	},
+	{
+		"id": 19,
+		"fullname": "Vishwa Joshi",
+		"img": "/Icon/vishwa.jpg",
+		"email": "vishwa_joshi@gmail.com",
+		"subscriber_count": 17100,
+		"follower_count": 28910,
+		"daily_reach": 1100,
+		"category": "SocialWorker",
+		"platforms": [
+			"Instagram",
+			"Youtube",
+			"Facebook",
+			"Tweeter"
+		],
+		"address": {
+			"address1": "Sojitra Society",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.549829,
+			"lng": 72.672084
+		}
+	},
+	{
+		"id": 20,
+		"fullname": "Vitrag Mehta",
+		"img": "/Icon/vitrag.jpg",
+		"email": "mehvitrag@gmail.com",
+		"subscriber_count": 54000,
+		"follower_count": 85000,
+		"daily_reach": 11000,
+		"category": "Technology",
+		"platforms": [
+			"Instagram",
+			"Youtube"
+		],
+		"address": {
+			"address1": "Dahemi Residency",
+			"city": "Ahmedabad",
+			"state": "Gujarat"
+		},
+		"location": {
+			"lat": 22.455890,
+			"lng": 72.952214
+		}
+	}
+]
