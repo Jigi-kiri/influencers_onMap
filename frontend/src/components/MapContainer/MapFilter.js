@@ -11,6 +11,7 @@ import {
 	Switch,
 	TextField,
 	Typography,
+	Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import * as React from "react";
@@ -18,7 +19,7 @@ import * as React from "react";
 const useStyle = makeStyles((theme) => ({
 	drawer: {
 		width: 300,
-		height: "80% !important",
+		height: "75% !important",
 		marginTop: 30,
 		marginRight: 15,
 		borderRadius: 10,
@@ -38,11 +39,12 @@ const useStyle = makeStyles((theme) => ({
 	},
 	filters: {
 		flex: 1,
-		paddingTop: 5,
+		paddingTop: 2,
+		marginTop: 10,
 		paddingBottom: 30,
 		display: "flex",
 		flexDirection: "column",
-		justifyContent: "space-around",
+		gap: 20,
 	},
 	title: {
 		verticalAlign: "middle",
@@ -65,19 +67,32 @@ const useStyle = makeStyles((theme) => ({
 			padding: 0,
 		},
 	},
+	swtichContainer: {
+		display: "flex",
+		flexDirection: "column",
+		gap: 8,
+	},
 }));
 
-let influencersCategory;
+const category = [
+	"Motivation",
+	"Fashion",
+	"Vloger",
+	"SocialWorker",
+	"Technology",
+];
 
-const MapFilter = ({ open, handleFilterClose, influencersList, getIcon }) => {
+const MapFilter = ({
+	open,
+	handleFilterClose,
+	influencersList,
+	getIcon,
+	toggleHandler,
+	applyFilter,
+	clearFilter,
+}) => {
 	const [influencer, setInfluencer] = React.useState("");
 	const classes = useStyle();
-
-	React.useEffect(() => {
-		influencersCategory = [
-			...new Set(influencersList?.map((el) => el.category)),
-		];
-	}, [influencersList]);
 
 	return (
 		<div>
@@ -111,19 +126,20 @@ const MapFilter = ({ open, handleFilterClose, influencersList, getIcon }) => {
 								</FormLabel>
 							</FormControl>
 							<FormGroup>
-								<section>
-									{influencersCategory?.length > 0 &&
-										influencersCategory.map((el, index) => (
+								<section className={classes.swtichContainer}>
+									{category?.length > 0 &&
+										category.map((el, index) => (
 											<FormControlLabel
 												key={index}
 												control={
 													<Switch
 														color="primary"
 														checked={influencersList
-															?.map((el) => el.category)
+															.map((el) => el.category)
 															.includes(el)}
 														name={el}
 														size="small"
+														onChange={toggleHandler}
 													/>
 												}
 												label={
@@ -156,6 +172,27 @@ const MapFilter = ({ open, handleFilterClose, influencersList, getIcon }) => {
 							/>
 						</section>
 					</section>
+					<span className={classes.buttonWrapper}>
+						<Button
+							size="small"
+							sx={{ mr: 2 }}
+							onClick={() => {
+								setInfluencer("");
+								clearFilter();
+							}}
+						>
+							Clear filters
+						</Button>
+						<Button
+							color="primary"
+							variant="contained"
+							size="small"
+							onClick={() => applyFilter(influencer)}
+							disabled={!influencer}
+						>
+							Apply filters
+						</Button>
+					</span>
 				</section>
 			</Drawer>
 		</div>

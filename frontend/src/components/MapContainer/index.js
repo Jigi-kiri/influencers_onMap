@@ -1,13 +1,14 @@
 import TuneIcon from "@mui/icons-material/Tune";
 import { Fab } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { lazy, useCallback, useState } from "react";
+import { lazy, useCallback, useState, useEffect } from "react";
 import InfluencersList from "../../fixture/influencers.json";
 import vBlogger from "../Icon/Blogger.png";
 import Fashion from "../Icon/Fashion.png";
 import Motivation from "../Icon/Motivation.png";
 import SocialWorker from "../Icon/SocialWorker.png";
 import Technology from "../Icon/Technology.png";
+import axios from "axios";
 
 const Map = lazy(() => import("./Map"));
 const MapFilter = lazy(() => import("./MapFilter"));
@@ -23,10 +24,34 @@ const useStyle = makeStyles((theme) => ({
 
 const MapContainer = () => {
 	const [open, setOpen] = useState(false);
+	const [influencers, setInfluencers] = useState(InfluencersList);
 	const classes = useStyle();
+	const baseURL = "http://locahost:8000"
 
-	const onFilterClick = () => {
-		setOpen(true);
+	useEffect(() => {
+		axios.get(`${baseURL}/influencers`).then((res) => console.log("res", res))
+	}, [])
+
+
+	const onFilterClick = (e) => {
+		let updatedInfluencers = [...influencers];
+		if (!e?.target?.checked) {
+			updatedInfluencers = influencers.filter(
+				(el) => el.category !== e?.target?.name
+			);
+			return setInfluencers(updatedInfluencers);
+		} else setInfluencers(InfluencersList);
+	};
+
+	const applyFilter = (val) => {
+		const updatedData = influencers.filter(
+			(el) => el.fullname.toLowerCase() === val.toLowerCase()
+		);
+		setInfluencers(updatedData);
+	};
+
+	const clearFilter = () => {
+		setInfluencers(InfluencersList);
 	};
 
 	const getIcon = useCallback((val) => {
@@ -50,21 +75,24 @@ const MapContainer = () => {
 				return;
 		}
 	}, []);
+
 	return (
 		<div>
-			<Map influencersList={InfluencersList} getIcons={getIcon} />
+			<Map influencersList={influencers} getIcons={getIcon} />
 			<MapFilter
 				open={open}
 				handleFilterClose={() => setOpen(false)}
-				influencersList={InfluencersList}
+				influencersList={influencers}
 				getIcon={getIcon}
+				toggleHandler={onFilterClick}
+				clearFilter={clearFilter}
+				applyFilter={applyFilter}
 			/>
 			<Fab
 				color="primary"
 				aria-label="add"
 				className={classes.fab}
-				onClick={onFilterClick}
-
+				onClick={() => setOpen(true)}
 			>
 				<TuneIcon />
 			</Fab>

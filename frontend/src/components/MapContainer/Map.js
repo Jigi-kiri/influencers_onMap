@@ -1,10 +1,11 @@
 import "leaflet/dist/leaflet.css";
-import React, { useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import React, { useState, lazy, Suspense } from "react";
+import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
 
 import L from "leaflet";
 import "leaflet/dist/images/marker-shadow.png";
-import { Card } from "@mui/material";
+import { Card, Typography } from "@mui/material";
+const InfluencerCard = lazy(() => import("./InfluencerCard"));
 
 const Map = ({ influencersList, getIcons }) => {
 	const position = [23.008072570408963, 72.52408749042945];
@@ -30,20 +31,28 @@ const Map = ({ influencersList, getIcons }) => {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			/>
-			{markers.map((el, index) => (
-				<Marker
-					key={index}
-					position={Object.values(el.location)}
-					icon={iconConfiguration(el.category)}
-				>
-					<Popup>
-						<Card>
-							{el.fullname}
-							<img src={el.img} style={{ width: "50px", height: "50px" }} />
-						</Card>
-					</Popup>
-				</Marker>
-			))}
+			{influencersList.length > 0 &&
+				influencersList?.map((el, index) => (
+					<Marker
+						key={index}
+						position={Object.values(el.location)}
+						icon={iconConfiguration(el.category)}
+						riseOnHover={() => console.log("it's cocmming")}
+					>
+						<div>
+							<Tooltip direction="left">
+								<Typography variant="subtitle1" fontSize={12} fontWeight={600}>
+									{el?.fullname}
+								</Typography>
+							</Tooltip>
+							<Popup >
+								<Suspense>
+									<InfluencerCard data={el} />
+								</Suspense>
+							</Popup>
+						</div>
+					</Marker>
+				))}
 		</MapContainer>
 	);
 };

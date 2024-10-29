@@ -1,14 +1,30 @@
 from fastapi import FastAPI, HTTPException
 from elasticsearch import Elasticsearch
-from types import List, Dict
+from fastapi.middleware.cors import CORSMiddleware
+
 import json
 
 app = FastAPI()
-es = Elasticsearch("http://localhost:9200")
+es = Elasticsearch("http://127.0.0.1:9200")
+
+origins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:3002'
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 
 class Influencer:
-	def __init__(self, fullname,img, email, subscriber_count, follower_count,daily_reach, category,platforms,address,location):
+	def __init__(self, id, fullname,img, email, subscriber_count, follower_count,daily_reach, category,platforms,address,location):
+		self.id = id
 		self.fullname=fullname
 		self.img = img
 		self.email = email
@@ -22,6 +38,7 @@ class Influencer:
 
 	def to_dict(self):
 		return {
+			"id": self.id,
 			"fullname":self.fullname,
 			"img":self.img,
 			"email":self.email,
@@ -51,7 +68,7 @@ async def upload_influencers():
 	
 	for influencer in influencers_data:
 		influcer_obj = Influencer(**influencer)
-		response = es.index("influencers", document=influcer_obj.to_dict())
+		response = es.index(index="influencers", document=influcer_obj.to_dict())
 		if not response["result"] == "created":
 			raise HTTPException(status_code=500, detail="Error inserting data into ElasticSearch")
 		
