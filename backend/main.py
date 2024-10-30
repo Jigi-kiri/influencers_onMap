@@ -1,17 +1,21 @@
 from fastapi import FastAPI, HTTPException
 from elasticsearch import Elasticsearch
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+import logging
+from influencers.route import router
 
-import json
+logger = logging.getLogger("uvicorn.error")
+
 
 app = FastAPI()
-es = Elasticsearch("http://127.0.0.1:9200")
+es = Elasticsearch("http://localhost:9200")
 
 origins = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:3002'
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
 ]
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,65 +26,26 @@ app.add_middleware(
 )
 
 
-class Influencer:
-	def __init__(self, id, fullname,img, email, subscriber_count, follower_count,daily_reach, category,platforms,address,location):
-		self.id = id
-		self.fullname=fullname
-		self.img = img
-		self.email = email
-		self.subscriber_count=subscriber_count
-		self.follower_count=follower_count
-		self.daily_reach=daily_reach
-		self.category=category
-		self.platforms=platforms
-		self.address=address
-		self.location=location
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        if not es.ping():
+            logger.error(
+                "Failed to connect to Elasticsearch at http://localhost:9200")
+            raise RuntimeError("Elasticsearch server is not available")
+    except Exception as e:
+        logger.error(f"Connection error: {e}")
+        raise RuntimeError("Error connecting to Elasticsearch")
+    yield
 
-	def to_dict(self):
-		return {
-			"id": self.id,
-			"fullname":self.fullname,
-			"img":self.img,
-			"email":self.email,
-			"subscriber_count":self.subscriber_count,
-			"follower_count":self.follower_count,
-			"daily_reach":self.daily_reach,
-			"category":self.category,
-			"platforms":self.platforms,
-			"address":self.address,
-			"location":self.location,
-		}
-	
+app = FastAPI(lifespan=lifespan)
 
-@app.on_event("startup")
-async def startup_even():
-	if not es.ping():
-		raise HTTPException(status_code=500, detail="ElasticSearch server is not available")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-
-@app.post("/upload-influencers/")
-async def upload_influencers():
-	try:
-		with open("fixture/influencers.json") as f:
-			influencers_data = json.load(f)
-	except FileNotFoundError:
-		raise HTTPException(status_code=404, detail="Fixture.json file is not found")
-	
-	for influencer in influencers_data:
-		influcer_obj = Influencer(**influencer)
-		response = es.index(index="influencers", document=influcer_obj.to_dict())
-		if not response["result"] == "created":
-			raise HTTPException(status_code=500, detail="Error inserting data into ElasticSearch")
-		
-	return {"status":"Data indexed successfully"}
-
-
-@app.get("/influencers")
-async def get_influencers():
-	try:
-		response = es.search(index="influencers", body={"query":{"match_all":{}}})
-		influencer = [hit["_source"] for hit in response["hits"]["hits"]]
-		return influencer
-	except Exception as e:
-		raise HTTPException(status_code=500, detail=str(e))
-
+app.include_router(router)

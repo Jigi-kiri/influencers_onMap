@@ -1,14 +1,13 @@
 import TuneIcon from "@mui/icons-material/Tune";
 import { Fab } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { lazy, useCallback, useState, useEffect } from "react";
-import InfluencersList from "../../fixture/influencers.json";
+import axios from "axios";
+import { lazy, useCallback, useEffect, useState } from "react";
 import vBlogger from "../Icon/Blogger.png";
 import Fashion from "../Icon/Fashion.png";
 import Motivation from "../Icon/Motivation.png";
 import SocialWorker from "../Icon/SocialWorker.png";
 import Technology from "../Icon/Technology.png";
-import axios from "axios";
 
 const Map = lazy(() => import("./Map"));
 const MapFilter = lazy(() => import("./MapFilter"));
@@ -22,36 +21,58 @@ const useStyle = makeStyles((theme) => ({
 	},
 }));
 
+let InfluencersList;
 const MapContainer = () => {
 	const [open, setOpen] = useState(false);
-	const [influencers, setInfluencers] = useState(InfluencersList);
+	const [influencersData, setInfluencersData] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const classes = useStyle();
-	const baseURL = "http://locahost:8000"
+	const baseURL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
 
 	useEffect(() => {
-		axios.get(`${baseURL}/influencers`).then((res) => console.log("res", res))
-	}, [])
+		if (influencersData.length === 0) {
+			setLoading(true);
+			axios
+				.get(`${baseURL}/influencers/`, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+				.then((res) => {
+					setInfluencersData(res.data);
+					InfluencersList = res.data;
+				})
+				.catch((err) => console.log("errrrr", err))
+				.finally(() => setLoading(false));
+		}
+	}, []);
 
-
-	const onFilterClick = (e) => {
-		let updatedInfluencers = [...influencers];
-		if (!e?.target?.checked) {
-			updatedInfluencers = influencers.filter(
-				(el) => el.category !== e?.target?.name
-			);
-			return setInfluencers(updatedInfluencers);
-		} else setInfluencers(InfluencersList);
-	};
+	const onFilterClick = useCallback(
+		(e) => {
+			let updatedInfluencers = [...influencersData];
+			if (!e?.target?.checked) {
+				updatedInfluencers = influencersData.filter(
+					(el) => el.category !== e?.target?.name
+				);
+				return setInfluencersData(updatedInfluencers);
+			} else setInfluencersData(InfluencersList);
+		},
+		[influencersData]
+	);
 
 	const applyFilter = (val) => {
-		const updatedData = influencers.filter(
-			(el) => el.fullname.toLowerCase() === val.toLowerCase()
-		);
-		setInfluencers(updatedData);
+		axios
+			.get(`${baseURL}/influencer/${val.fullname}`, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+			.then((res) => setInfluencersData(res.data))
+			.catch((err) => console.log("err", err));
 	};
 
 	const clearFilter = () => {
-		setInfluencers(InfluencersList);
+		setInfluencersData(InfluencersList);
 	};
 
 	const getIcon = useCallback((val) => {
@@ -76,13 +97,16 @@ const MapContainer = () => {
 		}
 	}, []);
 
-	return (
+	return loading ? (
+		"...Loading"
+	) : (
 		<div>
-			<Map influencersList={influencers} getIcons={getIcon} />
+			<Map influencersList={influencersData} getIcons={getIcon} />
 			<MapFilter
 				open={open}
 				handleFilterClose={() => setOpen(false)}
-				influencersList={influencers}
+				influencersList={influencersData}
+				optionList={InfluencersList}
 				getIcon={getIcon}
 				toggleHandler={onFilterClick}
 				clearFilter={clearFilter}

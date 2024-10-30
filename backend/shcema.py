@@ -8,7 +8,7 @@ class AddressBase(BaseModel):
 
 class LocationBase(BaseModel):
 	lat:float
-	lng:float
+	lon:float
 
 class InfluencerBase(BaseModel):
 	id: int

@@ -3,7 +3,6 @@ import {
 	Card,
 	CardMedia,
 	Typography,
-	Divider,
 	LinearProgress,
 } from "@mui/material";
 import React from "react";

@@ -1,10 +1,10 @@
 import "leaflet/dist/leaflet.css";
-import React, { useState, lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
 
+import { Typography } from "@mui/material";
 import L from "leaflet";
 import "leaflet/dist/images/marker-shadow.png";
-import { Card, Typography } from "@mui/material";
 const InfluencerCard = lazy(() => import("./InfluencerCard"));
 
 const Map = ({ influencersList, getIcons }) => {
@@ -39,18 +39,18 @@ const Map = ({ influencersList, getIcons }) => {
 						icon={iconConfiguration(el.category)}
 						riseOnHover={() => console.log("it's cocmming")}
 					>
-						<div>
+						<React.Fragment>
 							<Tooltip direction="left">
 								<Typography variant="subtitle1" fontSize={12} fontWeight={600}>
 									{el?.fullname}
 								</Typography>
 							</Tooltip>
-							<Popup >
-								<Suspense>
+							<Popup maxWidth={250} minWidth={200}>
+								<Suspense fallback={null}>
 									<InfluencerCard data={el} />
 								</Suspense>
 							</Popup>
-						</div>
+						</React.Fragment>
 					</Marker>
 				))}
 		</MapContainer>

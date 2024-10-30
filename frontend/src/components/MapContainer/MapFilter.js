@@ -2,6 +2,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import {
 	Autocomplete,
+	Button,
 	Drawer,
 	FormControl,
 	FormControlLabel,
@@ -11,7 +12,6 @@ import {
 	Switch,
 	TextField,
 	Typography,
-	Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import * as React from "react";
@@ -74,14 +74,6 @@ const useStyle = makeStyles((theme) => ({
 	},
 }));
 
-const category = [
-	"Motivation",
-	"Fashion",
-	"Vloger",
-	"SocialWorker",
-	"Technology",
-];
-
 const MapFilter = ({
 	open,
 	handleFilterClose,
@@ -90,9 +82,13 @@ const MapFilter = ({
 	toggleHandler,
 	applyFilter,
 	clearFilter,
+	optionList,
 }) => {
 	const [influencer, setInfluencer] = React.useState("");
 	const classes = useStyle();
+	const categoryFilters = optionList?.length > 0 && [
+		...new Set(optionList?.map((el) => el.category)),
+	];
 
 	return (
 		<div>
@@ -127,15 +123,15 @@ const MapFilter = ({
 							</FormControl>
 							<FormGroup>
 								<section className={classes.swtichContainer}>
-									{category?.length > 0 &&
-										category.map((el, index) => (
+									{categoryFilters?.length > 0 &&
+										categoryFilters.map((el, index) => (
 											<FormControlLabel
 												key={index}
 												control={
 													<Switch
 														color="primary"
 														checked={influencersList
-															.map((el) => el.category)
+															?.map((el) => el.category)
 															.includes(el)}
 														name={el}
 														size="small"
@@ -157,7 +153,8 @@ const MapFilter = ({
 							<Autocomplete
 								id="asynchronious"
 								style={{ width: "100%" }}
-								options={influencersList?.map((el) => el?.fullname) || []}
+								options={optionList || []}
+								getOptionLabel={(option) => option.fullname || ""}
 								value={influencer}
 								onChange={(el, val) => setInfluencer(val)}
 								renderInput={(params) => (
@@ -180,6 +177,7 @@ const MapFilter = ({
 								setInfluencer("");
 								clearFilter();
 							}}
+							variant="outlined"
 						>
 							Clear filters
 						</Button>
