@@ -1,15 +1,26 @@
 import "leaflet/dist/leaflet.css";
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
 
 import { Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import L from "leaflet";
 import "leaflet/dist/images/marker-shadow.png";
 const InfluencerCard = lazy(() => import("./InfluencerCard"));
 
+const useStyle = makeStyles((theme) => ({
+	popupContainer: {
+		"& .leaflet-popup-content": {
+		margin: "13px 15px 13px 15px",
+    lineHeight: 1.3,
+    fontSize: 13,
+		}
+	}
+}))
+
 const Map = ({ influencersList, getIcons }) => {
 	const position = [23.008072570408963, 72.52408749042945];
-	const [markers, setMarkers] = useState(influencersList);
+	const classes = useStyle()
 
 	const iconConfiguration = (value) => {
 		return L.icon({
@@ -45,7 +56,7 @@ const Map = ({ influencersList, getIcons }) => {
 									{el?.fullname}
 								</Typography>
 							</Tooltip>
-							<Popup maxWidth={250} minWidth={200}>
+							<Popup maxWidth={250} minWidth={200} className={classes.popupContainer}>
 								<Suspense fallback={null}>
 									<InfluencerCard data={el} />
 								</Suspense>

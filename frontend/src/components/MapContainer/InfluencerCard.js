@@ -2,15 +2,16 @@ import {
 	Box,
 	Card,
 	CardMedia,
-	Typography,
 	LinearProgress,
+	Tooltip,
+	Typography,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
-import Youtube from "../Icon/youtube.svg";
 import Facebook from "../Icon/facebook.svg";
 import Instagram from "../Icon/instagram.svg";
 import Tweeter from "../Icon/tweeter.svg";
-import { makeStyles } from "@mui/styles";
+import Youtube from "../Icon/youtube.svg";
 
 const iconMapping = {
 	Youtube: Youtube,
@@ -36,7 +37,7 @@ const useStyle = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-		gap: 1,
+		gap: "2px",
 	},
 }));
 
@@ -58,7 +59,7 @@ const InfluencerCard = ({ data }) => {
 					sx={{ width: 100, borderRadius: 2, margin: "0 auto" }}
 					alt={`${data.fullname}'s profile`}
 				/>
-				<Box sx={{ textAlign: "center", mt: 1 }}>
+				<Box sx={{ textAlign: "center" }}>
 					<Typography variant="h6" fontSize={18} fontWeight={600}>
 						{data.fullname}
 					</Typography>
@@ -67,7 +68,7 @@ const InfluencerCard = ({ data }) => {
 					</Typography>
 				</Box>
 
-				<Box sx={{ mt: 2 }}>
+				<Box sx={{ mt: 1 }}>
 					<Typography variant="subtitle2">Subscribers</Typography>
 					<LinearProgress
 						variant="determinate"
@@ -104,7 +105,9 @@ const InfluencerCard = ({ data }) => {
 					<Typography variant="subtitle2">Platforms:</Typography>
 					<div className={classes.imageContainer}>
 						{data.platforms.map((platform, index) => (
-							<img key={index} src={iconMapping[platform]} sizes="small" />
+							<Tooltip key={index} title={platform} arrow={true}>
+								<img src={iconMapping[platform]} sizes="small" />
+							</Tooltip>
 						))}
 					</div>
 				</Box>

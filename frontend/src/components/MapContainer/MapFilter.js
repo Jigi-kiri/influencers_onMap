@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import {
 	Autocomplete,
 	Button,
+	Checkbox,
 	Drawer,
 	FormControl,
 	FormControlLabel,
@@ -11,7 +12,7 @@ import {
 	IconButton,
 	Switch,
 	TextField,
-	Typography,
+	Typography
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import * as React from "react";
@@ -72,7 +73,18 @@ const useStyle = makeStyles((theme) => ({
 		flexDirection: "column",
 		gap: 8,
 	},
+	checkboxContainer: {
+		display: "flex",
+		flexDirection: "row"
+	},
+	formLableContainer: {
+		fontWeight: "bold",
+		fontSize: 15,
+		marginBottom: 5
+	}
 }));
+
+const TopFilters = ["Influencers", "Subscribers"];
 
 const MapFilter = ({
 	open,
@@ -83,6 +95,8 @@ const MapFilter = ({
 	applyFilter,
 	clearFilter,
 	optionList,
+	checkboxHandler,
+	selectedCategory
 }) => {
 	const [influencer, setInfluencer] = React.useState("");
 	const classes = useStyle();
@@ -116,7 +130,7 @@ const MapFilter = ({
 							<FormControl component="fieldset">
 								<FormLabel
 									component="label"
-									style={{ fontWeight: "bold", fontSize: 15, marginBottom: 5 }}
+									className={classes.formLableContainer}
 								>
 									Visibility Filters
 								</FormLabel>
@@ -149,11 +163,43 @@ const MapFilter = ({
 								</section>
 							</FormGroup>
 						</span>
+						<span>
+							<FormControl component="fieldset">
+								<FormLabel
+									component="label"
+									className={classes.formLableContainer}
+								>
+									Top Filters
+								</FormLabel>
+							</FormControl>
+							<FormGroup>
+								<section className={classes.checkboxContainer}>
+									{
+										TopFilters.map((el, index) => (
+											<FormControlLabel
+												key={index}
+												control={
+													<Checkbox
+														color="primary"
+														name={el}
+														size="small"
+														onChange={checkboxHandler}
+														checked={selectedCategory?.includes(el)}
+													/>
+												}
+												label={
+													<Typography variant="subtitle2">{`${el}`} </Typography>
+												}
+											/>
+										))}
+								</section>
+							</FormGroup>
+						</span>
 						<section>
 							<Autocomplete
 								id="asynchronious"
 								style={{ width: "100%" }}
-								options={optionList || []}
+								options={optionList?.sort((a, b) => a.fullname.localeCompare(b.fullname)) || []}
 								getOptionLabel={(option) => option.fullname || ""}
 								value={influencer}
 								onChange={(el, val) => setInfluencer(val)}

@@ -26,6 +26,8 @@ const MapContainer = () => {
 	const [open, setOpen] = useState(false);
 	const [influencersData, setInfluencersData] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [topCategory, setTopCategory] = useState("");
+
 	const classes = useStyle();
 	const baseURL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
 
@@ -97,6 +99,34 @@ const MapContainer = () => {
 		}
 	}, []);
 
+	const checkboxHandler = useCallback((event) => {
+		const category = event.target.name;
+		const checked = event.target?.checked;
+
+		setTopCategory(prevCategories => {
+			const updatedCategories = checked
+				? [...prevCategories, category]
+				: prevCategories.filter(c => c !== category);
+			console.log("updatedCategories", updatedCategories)
+			if (updatedCategories.length > 0) {
+				const fetchPromises = updatedCategories.map(cat =>
+					axios.get(`${baseURL}/top3category/${cat}`)
+				);
+
+				Promise.all(fetchPromises)
+					.then(responses => {
+						const combinedData = responses.flatMap(res => res.data);
+						setInfluencersData(combinedData);
+					})
+					.catch(err => console.log("Error fetching Top Categories", err));
+			} else {
+				setInfluencersData(InfluencersList);
+			}
+			return updatedCategories;
+		});
+	}, [baseURL, InfluencersList]);
+
+
 	return loading ? (
 		"...Loading"
 	) : (
@@ -111,6 +141,8 @@ const MapContainer = () => {
 				toggleHandler={onFilterClick}
 				clearFilter={clearFilter}
 				applyFilter={applyFilter}
+				checkboxHandler={checkboxHandler}
+				selectedCategory={topCategory}
 			/>
 			<Fab
 				color="primary"

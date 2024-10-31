@@ -25,7 +25,7 @@ async def get_influencer_by_name(name):
     try:
         response = es.search(index="influencers", body={
             "query": {
-                "match": {
+                "match_phrase_prefix": {
                     "fullname": name
                 }
             }
@@ -79,6 +79,43 @@ async def upload_influencers():
                 status_code=500, detail="Error inserting data into ElasticSearch")
 
     return {"status": "Data indexed successfully"}
+
+
+@router.get("/top3category/{category}")
+async def get_top3_category(category: str):
+    try:
+        if category.lower() == "influencers":
+            sort_key = "follower_count"
+        elif category.lower() == "subscribers":
+            sort_key = "subscriber_count"
+        else:
+            raise HTTPException(
+                status_code=400, detail="Invalid category specified. Choose either 'Influencer' or 'Subscriber'.")
+
+        response = es.search(
+            index="influencers",
+            body={
+                "query": {
+                    "match_all": {}
+                },
+                "sort": [
+                    {sort_key: {"order": "desc"}}
+                ]
+            },
+            size=3
+        )
+
+        top_influencers = [hit["_source"] for hit in response["hits"]["hits"]]
+
+        if not top_influencers:
+            raise HTTPException(
+                status_code=404, detail="No influencers found for the specified category.")
+
+        return top_influencers
+    except NotFoundError:
+        raise HTTPException(status_code=404, detail="Index not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.delete("/delete-index/{index_name}")
