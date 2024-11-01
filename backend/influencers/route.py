@@ -63,7 +63,7 @@ async def upload_influencers():
                 "bool": {
                     "should": [
                         {"term": {"id": influencer_id}},
-                        {"term": {"id": influencer_fullname}}
+                        {"term": {"fullname": influencer_fullname}}
                     ]
                 }
             }
